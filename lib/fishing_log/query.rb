@@ -2,10 +2,11 @@ module FishingLog
   class Query
     attr_reader :criteria, :results
 
-    FILTERS = [:body_of_water, :date, :start_time, :finish_time, :wind_speed,
-               :wind_direction, :temperature, :water_temp, :moon_phase]
+    FILTERS = [:body_of_water, :date, :time, :wind_speed, :wind_direction,
+               :temperature, :water_temp, :moon_phase]
 
     TEMP_DELTA = 5
+
 
     # other data points
     # :name, :weight, :time, :location, :depth
@@ -18,9 +19,11 @@ module FishingLog
       @criteria.each {|key, value| send "filter_#{key}", value }
     end
 
-    def filter_body_of_water(name)
-      set = select {|catch| catch[:body_of_water] == name }
-      add_filter_set :body_of_water, set
+    [:body_of_water, :moon_phase].each do |key|
+      define_method "filter_#{key}" do |name|
+        set = select {|catch| catch[key] == name }
+        add_filter_set key, set
+      end
     end
 
     def filter_temperature(temp)

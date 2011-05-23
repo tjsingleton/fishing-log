@@ -7,6 +7,11 @@ describe Query do
     BODIES_OF_WATER[ rand(BODIES_OF_WATER.length - 1) ]
   end
 
+  MOON_PHASES = [:new, :waning_crescent, :third_quarter, :wanning_gibbous]
+  def rand_moon_phase
+    MOON_PHASES[ rand(MOON_PHASES.length - 1) ]
+  end
+
   it "can filter based on body of water" do
     catch_set = stub(catches: [])
     5.times { catch_set.catches << {body_of_water: 'Bear Creek'} }
@@ -35,6 +40,21 @@ describe Query do
     temperatures = temperature_results.map{|result| result[:temperature]}
     temperatures.min.should == 85
     temperatures.max.should == 95
+  end
+
+  it "can filter based on moon phase" do
+    catch_set = stub(catches: [])
+    5.times { catch_set.catches << {moon_phase: :full} }
+    3.times { catch_set.catches << {moon_phase: rand_moon_phase} }
+
+    query = Query.new(catch_set, {moon_phase: :full})
+    query.search
+    moon_phase_results = query.results[:moon_phase]
+
+    moon_phase_results.size.should == 5
+    moon_phase_results.each do |result|
+      result[:moon_phase].should == :full
+    end
   end
 
 end
