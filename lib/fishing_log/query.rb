@@ -5,7 +5,8 @@ module FishingLog
     FILTERS = [:body_of_water, :date, :time, :wind_speed, :wind_direction,
                :temperature, :water_temp, :moon_phase]
 
-    TEMP_DELTA = 5
+    TEMP_DELTA       = 5
+    WATER_TEMP_DELTA = 5
 
 
     # other data points
@@ -20,16 +21,23 @@ module FishingLog
     end
 
     [:body_of_water, :moon_phase].each do |key|
+
       define_method "filter_#{key}" do |name|
         set = select {|catch| catch[key] == name }
         add_filter_set key, set
       end
+
     end
 
-    def filter_temperature(temp)
-      acceptable_range = (temp - TEMP_DELTA)..(temp + TEMP_DELTA)
-      set = select {|catch| acceptable_range.cover? catch[:temperature] }
-      add_filter_set :temperature, set
+    [[:temperature, TEMP_DELTA],
+     [:water_temp,  WATER_TEMP_DELTA]].each do |key, delta|
+
+      define_method "filter_#{key}" do |temp|
+        acceptable_range = (temp - delta)..(temp + delta)
+        set = select {|catch| acceptable_range.cover? catch[key] }
+        add_filter_set key, set
+      end
+
     end
 
     FILTERS.each do |key|
