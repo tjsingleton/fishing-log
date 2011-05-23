@@ -1,5 +1,7 @@
 module FishingLog
   class ReportLoader
+    attr_reader :reports
+
     def initialize(*files)
       @reports = []
 
