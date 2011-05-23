@@ -22,4 +22,19 @@ describe Query do
     end
   end
 
+
+  it "can filter based on temp" do
+    catch_set = stub(catches: [])
+    (80..100).each{|n| catch_set.catches << {temperature: n} }
+
+    query = Query.new(catch_set, {temperature: 90})
+    query.search
+    temperature_results = query.results[:temperature]
+
+    temperature_results.size.should == 11
+    temperatures = temperature_results.map{|result| result[:temperature]}
+    temperatures.min.should == 85
+    temperatures.max.should == 95
+  end
+
 end
