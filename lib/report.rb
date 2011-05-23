@@ -1,5 +1,5 @@
 class Report
-  attr_reader :data
+  attr_reader :data, :weather, :catches
 
   def initialize(&block)
     @data = {}
