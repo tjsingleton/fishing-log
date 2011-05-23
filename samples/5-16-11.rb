@@ -11,14 +11,16 @@ report do
   end
 
   caught do
-    fish 5, :bass
+    fish :bass
+    weighing 1
     time "9:00 pm"
     location "Stumps in A5"
     depth 15
   end
 
   caught do
-    fish 1, :bass
+    fish :bass
+    weighing 1.8
     time "11:15 pm"
     location "Weed bed in B4"
     depth 8

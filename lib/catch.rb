@@ -5,8 +5,12 @@ class Catch
     @data = {}
   end
 
-  def fish(weight, name)
-    @data[:weight], @data[:name] = weight, name
+  def fish(name)
+    @data[:name] = name
+  end
+
+  def weighing(pounds)
+    @data[:weight] = pounds
   end
 
   def time(at)

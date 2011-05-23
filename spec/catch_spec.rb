@@ -4,9 +4,13 @@ describe Catch do
   let(:catch) { Catch.new }
 
   it "can set the fish" do
-    catch.fish 5, "Bass"
-    catch.data[:weight].should == 5
+    catch.fish "Bass"
     catch.data[:name].should == "Bass"
+  end
+
+  it "can set the weight" do
+    catch.weighing 1
+    catch.data[:weight].should == 1
   end
 
   it "can set the time" do
