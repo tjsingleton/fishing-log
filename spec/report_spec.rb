@@ -1,6 +1,4 @@
-require "./lib/report"
-require "./lib/catch"
-require "./lib/weather"
+require_relative 'spec_helper'
 
 describe Report do
   let(:report) { Report.new }

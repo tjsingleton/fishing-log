@@ -1,7 +1,4 @@
-require "./lib/report"
-require "./lib/catch"
-require "./lib/weather"
-require "./lib/dsl_file"
+require_relative 'spec_helper'
 
 describe DSLFile do
   let(:report) { DSLFile.read("samples/5-16-11.rb") }

@@ -1,4 +1,4 @@
-require "./lib/catch"
+require_relative 'spec_helper'
 
 describe Catch do
   let(:catch) { Catch.new }
