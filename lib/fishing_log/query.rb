@@ -1,9 +1,11 @@
+require "date"
+
 module FishingLog
   class Query
     attr_reader :criteria, :results
 
     FILTERS = [:body_of_water, :date, :time, :wind_speed, :wind_direction,
-               :temperature, :water_temp, :moon_phase]
+               :temperature, :water_temp, :moon_phase, :sky_condition]
 
     TEMP_DELTA       = 5
     WATER_TEMP_DELTA = 5
@@ -40,6 +42,19 @@ module FishingLog
 
     end
 
+    def filter_time(times = {})
+      start, finish = times.values_at(:start, :finish).map do |time_str|
+        parse_time(time_str)
+      end
+
+      set = select do |catch|
+        time = parse_time(catch[:time])
+        time >= start && time <= finish
+      end
+
+      add_filter_set :time, set
+    end
+
     FILTERS.each do |key|
       name = "filter_#{key}"
       next if defined? name
@@ -59,6 +74,10 @@ module FishingLog
     def add_filter_set(key, set)
       @results[key] ||= []
       @results[key].concat set
+    end
+
+    def parse_time(time_str)
+      DateTime.parse(time_str).to_time
     end
   end
 end

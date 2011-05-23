@@ -68,5 +68,20 @@ describe Query do
     water_temps = water_temp_results.map{|result| result[:water_temp]}
     water_temps.min.should == 85
     water_temps.max.should == 95
+    end
+
+  it "can filter based on time" do
+    catch_set = stub(catches: [])
+    ["9:00 am", "10:00 am", "11:00 am"].map do |time|
+      catch_set.catches << {time: time}
+    end
+
+    query = Query.new(catch_set, {time: {start: "9:30 am",
+                                         finish: "10:30 am"}})
+    query.search
+
+    time_results = query.results[:time]
+    time_results.size.should == 1
+    time_results.first[:time].should == "10:00 am"
   end
 end
