@@ -19,4 +19,14 @@ describe CatchSet do
                                            name: :bass)
 
   end
+
+  it "should be able to search and return a query" do
+    catch_set = CatchSet.new
+
+    query = mock(Query)
+    Query.should_receive(:new).with(catch_set, an_instance_of(Hash)).and_return(query)
+    query.should_receive(:search)
+
+    catch_set.search(body_of_water: "Bear Creek")
+  end
 end

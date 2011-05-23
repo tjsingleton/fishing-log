@@ -15,7 +15,10 @@ module FishingLog
       end
     end
 
-    alias :<< :add_report
+    def search(criteria = {})
+      Query.new(self, criteria).search
+    end
 
+    alias :<< :add_report
   end
 end

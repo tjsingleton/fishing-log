@@ -15,5 +15,4 @@ describe ReportLoader do
     report_loader.to_catch_set.should have(4).catches
   end
 
-
 end
