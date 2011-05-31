@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require_relative '../lib/fishing_log'
+
+criteria = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: fishing_log [options] file, ..."
+
+  FishingLog::Query::FILTERS.each do |filter|
+    opts.on("--#{filter} [QUERY]", "Filters on #{filter}") do |value|
+      criteria[filter] = value if value
+    end
+  end
+end.parse!
+
+if criteria.empty?
+  puts "You must specify at least 1 filter; See --help for a list of filters"
+  puts
+  exit(1)
+end
+
+if ARGV.empty?
+  puts "You must provide at least 1 report; See --help for usage"
+  puts
+  exit(1)
+end
+
+puts
+FishingLog.search(criteria, ARGV)
+exit(0)

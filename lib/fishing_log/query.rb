@@ -20,6 +20,7 @@ module FishingLog
 
     def search
       @criteria.each {|key, value| send "filter_#{key}", value }
+      self
     end
 
     [:body_of_water, :moon_phase].each do |key|
