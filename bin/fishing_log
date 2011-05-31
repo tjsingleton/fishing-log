@@ -16,13 +16,13 @@ OptionParser.new do |opts|
 end.parse!
 
 if criteria.empty?
-  puts "You must specify at least 1 filter; See --help for a list of filters"
+  puts "You must specify at least 1 filter. See --help for a list of filters"
   puts
   exit(1)
 end
 
 if ARGV.empty?
-  puts "You must provide at least 1 report; See --help for usage"
+  puts "You must provide at least 1 report. See --help for usage"
   puts
   exit(1)
 end
