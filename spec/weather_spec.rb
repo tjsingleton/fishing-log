@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 
-describe Weather do
-  let(:weather) { Weather.new }
+describe FishingLog::Weather do
+  let(:weather) { FishingLog::Weather.new }
 
   it "can set wind data" do
     weather.wind 15, "NE"

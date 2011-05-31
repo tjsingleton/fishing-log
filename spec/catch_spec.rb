@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 
-describe Catch do
-  let(:catch) { Catch.new }
+describe FishingLog::Catch do
+  let(:catch) { FishingLog::Catch.new }
 
   it "can set the fish" do
     catch.fish "Bass"

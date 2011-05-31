@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Query do
+describe FishingLog::Query do
 
   BODIES_OF_WATER = %w{Lanier Sinclair Oconee}
   def rand_body_of_water
@@ -17,7 +17,7 @@ describe Query do
     5.times { catch_set.catches << {body_of_water: 'Bear Creek'} }
     3.times { catch_set.catches << {body_of_water: rand_body_of_water} }
 
-    query = Query.new(catch_set, {body_of_water: 'Bear Creek'})
+    query = FishingLog::Query.new(catch_set, {body_of_water: 'Bear Creek'})
     query.search
     body_of_water_results = query.results[:body_of_water]
 
@@ -31,7 +31,7 @@ describe Query do
     catch_set = stub(catches: [])
     (80..100).each{|n| catch_set.catches << {temperature: n} }
 
-    query = Query.new(catch_set, {temperature: 90})
+    query = FishingLog::Query.new(catch_set, {temperature: 90})
     query.search
     temperature_results = query.results[:temperature]
 
@@ -46,7 +46,7 @@ describe Query do
     5.times { catch_set.catches << {moon_phase: :full} }
     3.times { catch_set.catches << {moon_phase: rand_moon_phase} }
 
-    query = Query.new(catch_set, {moon_phase: :full})
+    query = FishingLog::Query.new(catch_set, {moon_phase: :full})
     query.search
     moon_phase_results = query.results[:moon_phase]
 
@@ -60,7 +60,7 @@ describe Query do
     catch_set = stub(catches: [])
     (80..100).each{|n| catch_set.catches << {water_temp: n} }
 
-    query = Query.new(catch_set, {water_temp: 90})
+    query = FishingLog::Query.new(catch_set, {water_temp: 90})
     query.search
     water_temp_results = query.results[:water_temp]
 
@@ -76,7 +76,7 @@ describe Query do
       catch_set.catches << {time: time}
     end
 
-    query = Query.new(catch_set, {time: {start: "9:30 am",
+    query = FishingLog::Query.new(catch_set, {time: {start: "9:30 am",
                                          finish: "10:30 am"}})
     query.search
 

@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 
-describe Report do
-  let(:report) { Report.new }
+describe FishingLog::Report do
+  let(:report) { FishingLog::Report.new }
 
   it "can set the body of water" do
     report.at "Bear Creek"
@@ -13,7 +13,7 @@ describe Report do
     report.weather do
       object = self
     end
-    object.should be_a(Weather)
+    object.should be_a(FishingLog::Weather)
   end
 
   it "caught evals a new catch" do
@@ -21,7 +21,6 @@ describe Report do
     report.caught do
       object = self
     end
-    object.should be_a(Catch)
+    object.should be_a(FishingLog::Catch)
   end
-
 end
